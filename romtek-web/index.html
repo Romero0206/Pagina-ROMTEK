@@ -493,6 +493,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .seg-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .seg-list li{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--bg-2);font-size:.92rem;font-weight:500}
 .seg-list svg{flex:none;color:var(--blue);margin-top:3px}
+
+/* Foto por segmento (Para quién) */
+.seg-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"photo text" "photo list"}
+.seg-photo{grid-area:photo;margin:0;border-radius:16px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/3;align-self:stretch;min-height:260px;box-shadow:var(--shadow)}
+.seg-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+.seg-body > div:nth-of-type(1){grid-area:text}
+.seg-body > .seg-list{grid-area:list}
+@media (max-width:860px){.seg-body{grid-template-columns:1fr;grid-template-areas:"photo" "text" "list"}}
 .seg-body.swap h3,.seg-body.swap > div > p{animation:segIn .6s var(--ease) both}
 .seg-body.swap > div > p{animation-delay:.06s}
 .seg-body.swap .seg-list li{animation:segLi .55s var(--ease) both;animation-delay:calc(var(--i) * 60ms + .1s)}
@@ -903,6 +911,7 @@ footer .wm b{color:var(--sky)}
         <button role="tab" id="t-conjunto" aria-selected="false" data-seg="conjunto">Conjuntos residenciales</button>
       </div>
       <div class="seg-body rv" role="tabpanel" id="segPanel" aria-labelledby="t-hogar" aria-live="polite">
+        <figure class="seg-photo"><img id="segImg" src="assets/img/seg-hogar.jpg" alt="Casa con cámara de seguridad y cerradura inteligente" width="1000" height="750" loading="lazy"></figure>
         <div>
           <h3 id="segTitle">Tu casa, protegida y fácil de manejar</h3>
           <p id="segText">Cámaras que ves desde el celular, cerraduras sin llaves y luces que se programan solas. Todo pensado para tu familia.</p>
@@ -1298,6 +1307,7 @@ footer .wm b{color:var(--sky)}
   function movePill(){var a=segTabs.querySelector('[aria-selected="true"]');if(!a)return;pill.style.width=a.offsetWidth+'px';pill.style.height=a.offsetHeight+'px';pill.style.transform='translate('+a.offsetLeft+'px,'+a.offsetTop+'px)';}
   function showSeg(k,animate){
     var s=seg[k];curSeg=k;
+    var im=$('segImg');im.src='assets/img/seg-'+k+'.jpg';im.alt={hogar:'Casa con cámara de seguridad y cerradura inteligente',empresa:'Oficina con control de acceso biométrico y cámara domo',comercio:'Local comercial con cámara de seguridad y control en la puerta',conjunto:'Portería de conjunto residencial con barrera, citófono y cámaras'}[k];
     $('segTitle').textContent=s.t;$('segText').textContent=s.p;
     $('segCta').firstChild.nodeValue=s.c+' ';
     var ul=$('segList');ul.innerHTML='';
