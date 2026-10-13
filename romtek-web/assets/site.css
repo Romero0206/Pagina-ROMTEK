@@ -1,0 +1,54 @@
+/* ROMTEK — estilos compartidos: fuentes, aviso de cookies, botón de WhatsApp y páginas legales */
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-300-normal.woff2) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-800-normal.woff2) format('woff2');font-weight:800;font-display:swap}
+
+/* ---------- botón flotante de WhatsApp ---------- */
+.wa-float{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:10px;background:#157A3E;color:#fff;border-radius:999px;padding:12px 18px 12px 14px;font:700 .9rem/1 'Montserrat',system-ui,sans-serif;text-decoration:none;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .25s ease,background .25s}
+.wa-float:hover{transform:translateY(-2px);background:#0F6633}
+.wa-float:focus-visible{outline:3px solid #0062CC;outline-offset:3px}
+.wa-float svg{width:26px;height:26px;flex:none}
+@media (max-width:520px){.wa-float span{display:none}.wa-float{padding:14px}}
+
+/* ---------- aviso de cookies ---------- */
+.cc{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;max-width:560px;background:#0B2D5B;color:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);font:400 .9rem/1.55 'Montserrat',system-ui,sans-serif}
+.cc[hidden]{display:none!important}
+.cc h2{font-size:1rem;font-weight:700;margin:0 0 6px;color:#fff}
+.cc p{margin:0;color:#D6E0EF}
+.cc a{color:#9CCBFF;text-decoration:underline}
+.cc .cc-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.cc button{font:700 .85rem/1 'Montserrat',system-ui,sans-serif;padding:.85em 1.3em;border-radius:10px;cursor:pointer;border:1.5px solid rgba(255,255,255,.4);background:transparent;color:#fff}
+.cc button.cc-accept{background:#fff;color:#0B2D5B;border-color:#fff}
+.cc button:focus-visible{outline:3px solid #9CCBFF;outline-offset:2px}
+.cc ~ .wa-float{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+
+/* ---------- páginas legales y 404 ---------- */
+.lg{margin:0;background:#F4F6F9;color:#1F2937;font:400 1rem/1.7 'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.lg a{color:#0062CC}
+.lg-top{background:#fff;border-bottom:1px solid #E1E5EC;padding-top:env(safe-area-inset-top,0px)}
+.lg-top .in{max-width:880px;margin:0 auto;padding:16px clamp(16px,5vw,32px);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.lg-wm{font-weight:800;letter-spacing:.06em;font-size:1.3rem;color:#0B2D5B;text-decoration:none}
+.lg-wm b{color:#0062CC}
+.lg-back{font-weight:600;font-size:.88rem;text-decoration:none}
+.lg-main{max-width:880px;margin:0 auto;padding:clamp(32px,6vw,64px) clamp(16px,5vw,32px)}
+.lg-main .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#0062CC}
+.lg-main h1{font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.15;color:#0B2D5B;margin:.4em 0 .3em;text-wrap:balance}
+.lg-main .upd{color:#4B5565;font-size:.88rem;margin:0 0 28px}
+.lg-card{background:#fff;border:1px solid #E1E5EC;border-radius:16px;padding:clamp(22px,4vw,40px)}
+.lg-card h2{font-size:1.15rem;color:#0B2D5B;margin:1.8em 0 .5em}
+.lg-card h2:first-child{margin-top:0}
+.lg-card p,.lg-card li{color:#374151;max-width:72ch}
+.lg-card ul{padding-left:1.2em}
+.lg-card table{width:100%;border-collapse:collapse;font-size:.9rem;margin:1em 0}
+.lg-card th,.lg-card td{border:1px solid #E1E5EC;padding:10px 12px;text-align:left;vertical-align:top}
+.lg-card th{background:#F4F6F9;color:#0B2D5B}
+.tbl{overflow-x:auto}
+.note{background:#EEF5FF;border-left:4px solid #0062CC;padding:14px 18px;border-radius:8px;font-size:.9rem;margin-top:24px}
+.lg-foot{max-width:880px;margin:0 auto;padding:0 clamp(16px,5vw,32px) 90px;font-size:.85rem;color:#4B5565;display:flex;flex-wrap:wrap;gap:8px 20px}
+.lg-foot a{color:#4B5565}
+.lg-btn{display:inline-flex;align-items:center;gap:.5em;background:#0062CC;color:#fff!important;text-decoration:none;font-weight:700;padding:.95em 1.6em;border-radius:10px}
+.lg-btn:hover{background:#0052AD}
+.lg a:focus-visible,.lg button:focus-visible{outline:3px solid #0062CC;outline-offset:3px;border-radius:4px}

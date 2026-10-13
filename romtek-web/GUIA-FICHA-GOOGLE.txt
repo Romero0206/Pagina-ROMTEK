@@ -1,0 +1,53 @@
+ROMTEK — PERFIL DE EMPRESA EN GOOGLE (Google Business Profile)
+=============================================================
+Crear en: https://business.google.com  →  "Administrar ahora"
+
+NOMBRE DE LA EMPRESA
+ROMTEK
+(Solo el nombre real. Agregar palabras como "cámaras Bogotá" va contra las normas de Google y puede suspender la ficha.)
+
+CATEGORÍA PRINCIPAL  (Google sugiere nombres al escribir; elige el más parecido)
+Servicio de sistemas de seguridad
+
+CATEGORÍAS ADICIONALES (máximo 9)
+- Instalador de cámaras de seguridad (CCTV)
+- Proveedor de sistemas de control de acceso
+- Instalador de sistemas de alarma
+- Servicio de automatización de viviendas (domótica)
+- Servicio de cableado de red
+
+TIPO DE UBICACIÓN
+Si no atiendes público en un local: "Empresa de servicios en el área" (la dirección queda oculta)
+y agrega las zonas de servicio, por ejemplo: Bogotá, Soacha, Chía, Mosquera, Funza, Cota.
+
+DESCRIPCIÓN (máximo 750 caracteres)
+ROMTEK ofrece soluciones tecnológicas integrales en seguridad electrónica, redes y domótica para hogares, comercios, empresas, oficinas y conjuntos residenciales. Vendemos, instalamos, configuramos y damos mantenimiento a cámaras CCTV análogas e IP, DVR y NVR, alarmas, control de acceso, cerraduras electrónicas e inteligentes, videoporteros y citofonía. También instalamos cableado estructurado, redes Wi-Fi y access points, y automatizamos iluminación, puertas y dispositivos para controlarlos desde el celular. Te acompañamos desde la asesoría y el diseño hasta la puesta en marcha y el soporte. Monitoreo 24/7 con nuestro aliado SQUADRA SEGURIDAD.
+
+SERVICIOS (agregar uno por uno)
+Cámaras de seguridad CCTV · Cámaras IP · DVR y NVR · Sistemas de alarma · Control de acceso ·
+Cerraduras electrónicas · Videoporteros · Citofonía · Cableado estructurado · Redes Wi-Fi ·
+Access Points · Iluminación inteligente · Automatización de puertas · Domótica ·
+Mantenimiento preventivo y correctivo · Soporte técnico · Proyectos de integración · Monitoreo 24/7
+
+DATOS DE CONTACTO
+Teléfono: el mismo número de WhatsApp de la web
+Sitio web: https://www.romtek.com.co
+Botón de chat: activa WhatsApp en "Mensajes"
+
+HORARIO
+Define el horario real de atención (por ejemplo, lunes a sábado). Debe coincidir con el que respondes.
+
+FOTOS (mínimo 10 para empezar)
+- Logo (cuadrado): assets/img/icon-512.png
+- Portada (horizontal): assets/img/og-image.jpg
+- Fotos reales de instalaciones terminadas, del equipo trabajando y del vehículo o uniforme con la marca.
+  Las fotos reales generan más confianza que las imágenes de catálogo.
+
+VERIFICACIÓN
+Google pedirá verificar con un video corto que muestre la marca, herramientas o vehículo de trabajo,
+o con una llamada o mensaje. Ten a mano algo con el logo de ROMTEK.
+
+DESPUÉS DE VERIFICAR
+- Pide reseñas a cada cliente al terminar la instalación (Google te da un enlace directo).
+- Responde todas las reseñas.
+- Publica una novedad cada 2 semanas (instalación terminada, consejo de seguridad, promoción).

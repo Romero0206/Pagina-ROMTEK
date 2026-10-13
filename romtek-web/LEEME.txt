@@ -1,0 +1,54 @@
+ROMTEK — SITIO WEB LISTO PARA PUBLICAR
+=======================================
+
+1. DATOS QUE DEBES REEMPLAZAR ANTES DE PUBLICAR
+   Usa "Buscar y reemplazar en todos los archivos" (por ejemplo en VS Code: Ctrl+Shift+H).
+
+   Buscar                     Reemplazar por
+   -------------------------  ------------------------------------------
+   573000000000               Número de WhatsApp con indicativo, sin + ni espacios (ej. 573101234567)
+   +57 300 000 0000           El mismo número, como se muestra (ej. +57 310 123 4567)
+   contacto@romtek.com.co     Correo real de ROMTEK
+   www.romtek.com.co          Dominio real (si es otro). Revisa también .htaccess, robots.txt y sitemap.xml
+   [RAZÓN SOCIAL]             Nombre legal de la empresa o de la persona natural titular
+   [NIT]                      NIT o número de identificación del titular
+   [DIRECCIÓN]                Dirección física (aparece en el aviso legal y la política de datos)
+   G-XXXXXXXXXX               ID de Google Analytics 4 (archivo assets/site.js)
+   Bogotá                     Confirma la ciudad. Aparece en el título, la descripción y los datos estructurados.
+
+2. CÓMO PUBLICAR
+   - Sube TODO el contenido de esta carpeta a la raíz del hosting (public_html), incluido el archivo oculto .htaccess.
+   - Activa el certificado SSL gratuito (AutoSSL / Let's Encrypt) en el panel del hosting.
+     El .htaccess fuerza HTTPS y www automáticamente.
+   - Si el hosting no usa Apache (Netlify, Vercel, GitHub Pages), activa "Force HTTPS" en su panel;
+     la página 404.html la detectan solos.
+
+3. GOOGLE ANALYTICS 4
+   - Crea una propiedad en analytics.google.com, copia el ID (G-...) y pégalo en assets/site.js.
+   - Analytics solo se carga si la persona acepta las cookies (Ley 1581 de 2012).
+   - Eventos que ya se registran: generate_lead (formulario enviado) y whatsapp_click.
+
+4. GOOGLE SEARCH CONSOLE
+   - Agrega el dominio en search.google.com/search-console y envía: https://www.romtek.com.co/sitemap.xml
+   - Prueba los datos estructurados en: search.google.com/test/rich-results
+
+5. FORMULARIO Y SPAM
+   El formulario no necesita servidor: al enviarlo abre WhatsApp con la solicitud lista.
+   Protección incluida: campo trampa oculto para bots, tiempo mínimo de llenado,
+   límite de un envío cada 30 segundos, validación de nombre y celular, y autorización de datos obligatoria.
+
+6. QUÉ INCLUYE
+   index.html                  Página principal (SEO, datos estructurados, una sola llamada a la acción)
+   aviso-legal.html            Aviso legal
+   politica-privacidad.html    Política de tratamiento de datos (Ley 1581 de 2012)
+   politica-cookies.html       Política de cookies
+   404.html                    Página de error personalizada
+   robots.txt / sitemap.xml    Indexación en buscadores
+   site.webmanifest            Ícono al guardar la web en el celular
+   favicon.ico + assets/img    Favicon, íconos e imagen para redes sociales (comprimidos)
+   assets/fonts                Tipografía Montserrat alojada en el propio sitio (más rápida)
+   .htaccess                   HTTPS, 404, seguridad, compresión y caché
+   GUIA-FICHA-GOOGLE.txt       Textos listos para crear el Perfil de Empresa en Google
+
+Importante: los textos legales son una base redactada conforme a la normativa colombiana.
+Pídele a un abogado que los revise antes de publicar.
