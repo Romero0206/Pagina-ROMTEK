@@ -538,6 +538,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .fields input,.fields textarea{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:.85em 1em;font-size:.92rem;color:var(--ink);transition:border-color .25s,box-shadow .25s}
 .fields input:focus,.fields textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 4px color-mix(in srgb,var(--blue) 15%,transparent)}
 .fields textarea{min-height:90px;resize:vertical}
+.fs legend em,.more summary em{font-style:normal;font-weight:600;color:var(--ink-3);font-size:.76rem;margin-left:.4em}
+.fields-main{margin-bottom:26px}
+.more{margin:0 0 22px;border:1.5px dashed var(--line);border-radius:12px;padding:0 14px}
+.more summary{cursor:pointer;font-size:.86rem;font-weight:700;padding:.85em 0;color:var(--blue-text);list-style:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary::before{content:"+";display:inline-block;width:1.2em;font-weight:800}
+.more[open] summary::before{content:"–"}
+.more .fields{padding-bottom:14px}
 .summary{position:sticky;top:96px;background:linear-gradient(160deg,var(--navy),var(--navy-2));color:var(--on-navy);border-radius:22px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:18px;overflow:hidden;isolation:isolate}
 .summary::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(0,123,255,.5),transparent 70%);z-index:-1;animation:bob 7s ease-in-out infinite}
 .summary .wm{color:#fff;font-size:1rem}
@@ -942,38 +950,45 @@ footer .wm b{color:var(--sky)}
     <div class="wrap">
       <div class="head">
         <div><span class="label">Solicitar asesoría</span><h2 class="split">Arma tu solución y te asesoramos.</h2></div>
-        <p class="rv">Selecciona lo que te interesa. Al enviar se abre WhatsApp con tu solicitud lista y un asesor de ROMTEK te responde.</p>
+        <p class="rv">Solo necesitamos tu nombre y celular. Lo demás es opcional: al enviar se abre WhatsApp con tu solicitud lista y un asesor de ROMTEK te responde.</p>
       </div>
       <div class="builder">
         <form id="quote" novalidate class="rv" data-rv="left">
           <div class="hp" aria-hidden="true"><label for="hpWeb">No llenes este campo</label><input type="text" id="hpWeb" name="sitio_web" tabindex="-1" autocomplete="off"></div>
+          <div class="fields fields-main">
+            <label for="fName">Nombre *<input id="fName" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required minlength="2" maxlength="60"></label>
+            <label for="fPhone">Celular *<input id="fPhone" name="celular" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej: 310 123 4567" required maxlength="20"></label>
+          </div>
           <fieldset class="fs">
-            <legend>¿Para qué tipo de espacio?</legend>
-            <div class="opts">
-              <label class="opt"><input type="radio" name="espacio" id="e1" value="Hogar" checked><span>Hogar</span></label>
-              <label class="opt"><input type="radio" name="espacio" id="e2" value="Empresa"><span>Empresa</span></label>
-              <label class="opt"><input type="radio" name="espacio" id="e3" value="Comercio"><span>Comercio</span></label>
-              <label class="opt"><input type="radio" name="espacio" id="e4" value="Conjunto residencial"><span>Conjunto residencial</span></label>
-            </div>
-          </fieldset>
-          <fieldset class="fs">
-            <legend>¿Qué te interesa?</legend>
+            <legend>¿Qué te interesa? <em>Opcional</em></legend>
             <div class="opts" id="svcOpts">
-              <label class="opt"><input type="checkbox" id="s1" value="Cámaras CCTV" checked><span>Cámaras CCTV</span></label>
+              <label class="opt"><input type="checkbox" id="s1" value="Cámaras CCTV"><span>Cámaras CCTV</span></label>
               <label class="opt"><input type="checkbox" id="s2" value="Alarmas"><span>Alarmas</span></label>
               <label class="opt"><input type="checkbox" id="s3" value="Control de acceso"><span>Control de acceso</span></label>
               <label class="opt"><input type="checkbox" id="s4" value="Videoportero"><span>Videoportero</span></label>
-              <label class="opt"><input type="checkbox" id="s5" value="Cerradura inteligente" checked><span>Cerradura inteligente</span></label>
+              <label class="opt"><input type="checkbox" id="s5" value="Cerradura inteligente"><span>Cerradura inteligente</span></label>
               <label class="opt"><input type="checkbox" id="s6" value="Domótica"><span>Domótica</span></label>
               <label class="opt"><input type="checkbox" id="s7" value="Redes y WiFi"><span>Redes y WiFi</span></label>
               <label class="opt"><input type="checkbox" id="s8" value="Monitoreo 24/7"><span>Monitoreo 24/7</span></label>
             </div>
           </fieldset>
+          <fieldset class="fs">
+            <legend>¿Para qué tipo de espacio? <em>Opcional</em></legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="espacio" id="e1" value="Hogar"><span>Hogar</span></label>
+              <label class="opt"><input type="radio" name="espacio" id="e2" value="Empresa"><span>Empresa</span></label>
+              <label class="opt"><input type="radio" name="espacio" id="e3" value="Comercio"><span>Comercio</span></label>
+              <label class="opt"><input type="radio" name="espacio" id="e4" value="Conjunto residencial"><span>Conjunto residencial</span></label>
+            </div>
+          </fieldset>
+          <details class="more">
+            <summary>Agregar más detalles <em>Opcional</em></summary>
+            <div class="fields">
+              <label class="full" for="fCity">Ciudad o barrio<input id="fCity" name="ubicacion" type="text" placeholder="Ej: Bogotá, Chapinero" maxlength="80"></label>
+              <label class="full" for="fMsg">Cuéntanos más<textarea id="fMsg" name="mensaje" maxlength="500" placeholder="Ej: casa de dos pisos, quiero ver las cámaras desde el celular"></textarea></label>
+            </div>
+          </details>
           <div class="fields">
-            <label for="fName">Nombre *<input id="fName" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required minlength="2" maxlength="60"></label>
-            <label for="fPhone">Celular *<input id="fPhone" name="celular" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej: 310 123 4567" required maxlength="20"></label>
-            <label class="full" for="fCity">Ciudad o barrio<input id="fCity" name="ubicacion" type="text" placeholder="Ej: Bogotá, Chapinero" maxlength="80"></label>
-            <label class="full" for="fMsg">Cuéntanos más (opcional)<textarea id="fMsg" name="mensaje" maxlength="500" placeholder="Ej: casa de dos pisos, quiero ver las cámaras desde el celular"></textarea></label>
             <label class="consent" for="fConsent"><input type="checkbox" id="fConsent" name="autorizacion" required><span>Autorizo a ROMTEK a tratar mis datos para responder esta solicitud, según la <a href="politica-privacidad.html">Política de Tratamiento de Datos Personales</a>. *</span></label>
           </div>
         </form>
@@ -1329,13 +1344,13 @@ footer .wm b{color:var(--sky)}
   function update(){
     sum.innerHTML='';sent.hidden=true;
     var esp=form.querySelector('input[name="espacio"]:checked');
-    row('Espacio',esp?esp.value:'—');
+    row('Espacio',esp?esp.value:'Por definir');
     var s=[].map.call(form.querySelectorAll('#svcOpts input:checked'),function(i){return i.value;});
-    row('Soluciones',s.length?s.join(', '):'Ninguna aún');
+    row('Soluciones',s.length?s.join(', '):'Te ayudamos a elegir');
     var n=$('fName').value.trim(),ph=$('fPhone').value.trim(),c=$('fCity').value.trim();
     if(n)row('Nombre',n);
     if(c)row('Ubicación',c);
-    var done=(esp?1:0)+(s.length?1:0)+(n?1:0)+(ph?1:0)+(c?1:0),pct=Math.round(done/5*100);
+    var done=(n.length>=2?1:0)+(ph.replace(/\D/g,'').length>=7?1:0)+($('fConsent').checked?1:0),pct=Math.round(done/3*100);
     $('mBar').style.setProperty('--m',pct+'%');$('mPct').textContent=pct+' %';
   }
   form.addEventListener('input',update);
@@ -1370,7 +1385,7 @@ footer .wm b{color:var(--sky)}
     var esp=form.querySelector('input[name="espacio"]:checked');
     var sv=[].map.call(form.querySelectorAll('#svcOpts input:checked'),function(i){return i.value;});
     var city=$('fCity').value.trim(),msg=$('fMsg').value.trim().slice(0,500);
-    var txt='Hola ROMTEK, quiero solicitar una asesoría.\n\nNombre: '+n+'\nCelular: '+pEl.value.trim()+'\nEspacio: '+(esp?esp.value:'-')+'\nMe interesa: '+(sv.length?sv.join(', '):'-')+(city?'\nUbicación: '+city:'')+(msg?'\nDetalle: '+msg:'');
+    var txt='Hola ROMTEK, quiero solicitar una asesoría.\n\nNombre: '+n+'\nCelular: '+pEl.value.trim()+(esp?'\nEspacio: '+esp.value:'')+'\nMe interesa: '+(sv.length?sv.join(', '):'que me ayuden a elegir')+(city?'\nUbicación: '+city:'')+(msg?'\nDetalle: '+msg:'');
     var url='https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
     lastSent=Date.now();
     if(window.romtekTrack)window.romtekTrack('generate_lead',{form:'asesoria',espacio:esp?esp.value:''});
