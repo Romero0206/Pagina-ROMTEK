@@ -498,6 +498,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .seg-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"photo text" "photo list"}
 .seg-photo{grid-area:photo;margin:0;border-radius:16px;overflow:hidden;background:var(--bg-2);align-self:stretch;width:100%;min-width:0;min-height:340px;position:relative;box-shadow:var(--shadow)}
 .seg-photo img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+.seg-photo video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;background:#0B1D3B}
+.seg-photo [hidden]{display:none}
 .seg-body > div:nth-of-type(1){grid-area:text}
 .seg-body > .seg-list{grid-area:list}
 @media (max-width:860px){.seg-body{grid-template-columns:1fr;grid-template-areas:"photo" "text" "list"}.seg-photo{min-height:0;aspect-ratio:4/3}}
@@ -919,7 +921,7 @@ footer .wm b{color:var(--sky)}
         <button role="tab" id="t-conjunto" aria-selected="false" data-seg="conjunto">Conjuntos residenciales</button>
       </div>
       <div class="seg-body rv" role="tabpanel" id="segPanel" aria-labelledby="t-hogar" aria-live="polite">
-        <figure class="seg-photo"><img id="segImg" src="assets/img/seg-hogar.jpg" alt="Casa con cámara de seguridad y cerradura inteligente" width="1000" height="750" loading="lazy"></figure>
+        <figure class="seg-photo"><img id="segImg" src="assets/img/seg-hogar.jpg" alt="Casa con cámara de seguridad y cerradura inteligente" width="1000" height="750" loading="lazy"><video id="segVideo" muted loop playsinline preload="none" poster="assets/img/seg-hogar.jpg" aria-label="Recorrido por una casa con cámaras, cerradura inteligente, alarma, luces y WiFi instalados" hidden><source src="assets/video/recorrido-casa.mp4" type="video/mp4"></video></figure>
         <div>
           <h3 id="segTitle">Tu casa, protegida y fácil de manejar</h3>
           <p id="segText">Cámaras que ves desde el celular, cerraduras sin llaves y luces que se programan solas. Todo pensado para tu familia.</p>
@@ -1320,9 +1322,13 @@ footer .wm b{color:var(--sky)}
   var segTabs=$('segTabs'),pill=$('pillbg'),tabs=segTabs.querySelectorAll('button'),segBody=$('segPanel'),curSeg='hogar';
   segTabs.classList.remove('nojs');
   function movePill(){var a=segTabs.querySelector('[aria-selected="true"]');if(!a)return;pill.style.width=a.offsetWidth+'px';pill.style.height=a.offsetHeight+'px';pill.style.transform='translate('+a.offsetLeft+'px,'+a.offsetTop+'px)';}
+  var vid=$('segVideo'),vidVis=false;
+  function vidPlay(){if(!vid)return;if(rm){vid.controls=true;return;}var p=vid.play();if(p&&p.catch)p.catch(function(){vid.controls=true;});}
+  if(vid&&'IntersectionObserver' in window){new IntersectionObserver(function(es){vidVis=es[0].isIntersecting;if(vidVis&&curSeg==='hogar')vidPlay();else vid.pause();},{threshold:.35}).observe(segBody);}
   function showSeg(k,animate){
     var s=seg[k];curSeg=k;
     var im=$('segImg');im.src='assets/img/seg-'+k+'.jpg';im.alt={hogar:'Casa con cámara de seguridad y cerradura inteligente',empresa:'Oficina con control de acceso biométrico y cámara domo',comercio:'Local comercial con cámara de seguridad y control en la puerta',conjunto:'Portería de conjunto residencial con barrera, citófono y cámaras'}[k];
+    if(vid){if(k==='hogar'){im.hidden=true;vid.hidden=false;if(vidVis)vidPlay();}else{vid.pause();vid.hidden=true;im.hidden=false;}}
     $('segTitle').textContent=s.t;$('segText').textContent=s.p;
     $('segCta').firstChild.nodeValue=s.c+' ';
     var ul=$('segList');ul.innerHTML='';
