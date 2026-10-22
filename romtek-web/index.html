@@ -11,19 +11,20 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ROMTEK">
 <meta property="og:locale" content="es_CO">
-<meta property="og:title" content="ROMTEK | Tecnología que protege y conecta">
+<meta property="og:title" content="ROMTEK | Tecnología que protege, conecta y automatiza">
 <meta property="og:description" content="Seguridad electrónica, redes y domótica para hogares, empresas y conjuntos residenciales. Asesoría, instalación y soporte.">
 <meta property="og:url" content="https://www.romtek.com.co/">
 <meta property="og:image" content="https://www.romtek.com.co/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Logo de ROMTEK con el lema Tecnología que protege y conecta sobre fondo azul oscuro">
+<meta property="og:image:alt" content="Logo de ROMTEK con el lema Tecnología que protege, conecta y automatiza sobre fondo azul oscuro">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ROMTEK | Tecnología que protege y conecta">
+<meta name="twitter:title" content="ROMTEK | Tecnología que protege, conecta y automatiza">
 <meta name="twitter:description" content="Seguridad electrónica, redes y domótica. Asesoría, instalación y soporte.">
 <meta name="twitter:image" content="https://www.romtek.com.co/assets/img/og-image.jpg">
 <link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="assets/img/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/montserrat-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -39,7 +40,7 @@
    "name": "ROMTEK",
    "url": "https://www.romtek.com.co/",
    "logo": "https://www.romtek.com.co/assets/img/icon-512.png",
-   "slogan": "Tecnología que protege y conecta",
+   "slogan": "Tecnología que protege, conecta y automatiza",
    "email": "contacto@romtek.com.co",
    "telephone": "+573132742239",
    "sameAs": []
@@ -226,7 +227,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .intro .wm{font-size:clamp(2.6rem,9vw,5.5rem);color:#fff}
 .intro .wm i{font-style:normal;display:inline-block;animation:letterIn .6s var(--spring) both}
 .intro .wm b{color:var(--sky)}
-.intro .bar{position:absolute;left:50%;top:calc(50% + clamp(40px,7vw,70px));width:min(220px,50vw);height:2px;background:rgba(255,255,255,.12);transform:translateX(-50%);overflow:hidden;border-radius:2px}
+.intro .bar{position:absolute;left:50%;top:calc(50% + clamp(34px,5vw,52px));width:min(220px,50vw);height:2px;background:rgba(255,255,255,.12);transform:translateX(-50%);overflow:hidden;border-radius:2px}
 .intro .bar::after{content:"";position:absolute;inset:0;background:var(--sky);transform-origin:left;animation:load .5s var(--ease) both}
 @keyframes letterIn{from{opacity:0;transform:translateY(60%) scale(.6)}to{opacity:1;transform:none}}
 @keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -236,6 +237,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* ---------- wordmark ---------- */
 .wm{font-weight:800;letter-spacing:.06em;color:var(--wordmark);display:inline-flex;line-height:1}
 .wm b{color:var(--blue);font-weight:800}
+/* ---------- logo (imagen) ---------- */
+.brand{display:inline-flex;align-items:center;line-height:0}
+.brand img{display:block;height:auto}
+.brand .on-dark{display:none}
+.nav .brand img{width:clamp(118px,15vw,156px)}
+.summary .brand img{width:132px}
+footer .brand img{width:clamp(160px,20vw,210px)}
+.intro .logo-intro{width:min(460px,72vw);height:auto;animation:logoIn .7s var(--spring) .05s both}
+@keyframes logoIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand .on-light{display:none}:root:not([data-theme="light"]) .brand .on-dark{display:block}}
+:root[data-theme="dark"] .brand .on-light{display:none}
+:root[data-theme="dark"] .brand .on-dark{display:block}
+
 
 /* ---------- buttons ---------- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:1em 1.7em;border-radius:12px;font-weight:700;font-size:.92rem;border:1.5px solid transparent;cursor:pointer;transition:background .25s,border-color .25s,color .25s,box-shadow .3s;white-space:nowrap;overflow:hidden;isolation:isolate}
@@ -703,7 +717,7 @@ footer .wm b{color:var(--sky)}
 </svg>
 
 <div class="intro" aria-hidden="true">
-  <span class="wm"><i style="animation-delay:.05s">R</i><i style="animation-delay:.1s">O</i><i style="animation-delay:.15s">M</i><b><i style="animation-delay:.25s">T</i><i style="animation-delay:.3s">E</i><i style="animation-delay:.35s">K</i></b></span>
+  <img class="logo-intro" src="assets/img/logo-negativo.png" alt="" width="640" height="93">
   <span class="bar"></span>
 </div>
 
@@ -711,7 +725,7 @@ footer .wm b{color:var(--sky)}
 <div class="progress" id="progress" aria-hidden="true"></div>
 <nav class="nav" id="nav" aria-label="Principal">
   <div class="wrap">
-    <a href="#inicio" class="wm" aria-label="ROMTEK inicio">ROM<b>TEK</b></a>
+    <a href="#inicio" class="brand" aria-label="ROMTEK inicio"><img class="on-light" src="assets/img/logo.png" alt="ROMTEK" width="640" height="93"><img class="on-dark" src="assets/img/logo-negativo.png" alt="" width="640" height="93"></a>
     <ul>
       <li><a href="#soluciones">Soluciones</a></li>
       <li><a href="#comparar">Por qué ROMTEK</a></li>
@@ -996,7 +1010,7 @@ footer .wm b{color:var(--sky)}
         </form>
 
         <aside class="summary rv" data-rv="right" aria-live="polite">
-          <span class="wm">ROM<b>TEK</b></span>
+          <span class="brand"><img src="assets/img/logo-negativo.png" alt="ROMTEK" width="640" height="93" loading="lazy"></span>
           <h3>Tu solicitud</h3>
           <div class="meter"><div class="row"><span>Solicitud completa</span><b id="mPct">40 %</b></div><div class="track"><i id="mBar" style="--m:40%"></i></div></div>
           <ul id="sumList"></ul>
@@ -1044,7 +1058,7 @@ footer .wm b{color:var(--sky)}
   <div class="wrap">
     <div class="foot">
       <div>
-        <span class="wm">ROM<b>TEK</b></span>
+        <span class="brand"><img src="assets/img/logo-negativo.png" alt="ROMTEK" width="640" height="93" loading="lazy"></span>
         <p class="tag">Tecnología que protege, conecta y automatiza</p>
         <p class="contact">WhatsApp: <a href="https://wa.me/573132742239" data-loc="footer" target="_blank" rel="noopener">+57 313 274 2239</a><br>Correo: <a href="mailto:contacto@romtek.com.co">contacto@romtek.com.co</a><br>Bogotá D.C., Colombia</p>
       </div>

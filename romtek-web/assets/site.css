@@ -32,6 +32,8 @@
 .lg-top .in{max-width:880px;margin:0 auto;padding:16px clamp(16px,5vw,32px);display:flex;justify-content:space-between;align-items:center;gap:16px}
 .lg-wm{font-weight:800;letter-spacing:.06em;font-size:1.3rem;color:#0B2D5B;text-decoration:none}
 .lg-wm b{color:#0062CC}
+.lg-wm{line-height:0}
+.lg-wm img{display:block;width:140px;height:auto}
 .lg-back{font-weight:600;font-size:.88rem;text-decoration:none}
 .lg-main{max-width:880px;margin:0 auto;padding:clamp(32px,6vw,64px) clamp(16px,5vw,32px)}
 .lg-main .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#0062CC}
