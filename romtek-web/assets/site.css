@@ -5,6 +5,10 @@
 @font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
 @font-face{font-family:'Montserrat';src:url(fonts/montserrat-latin-800-normal.woff2) format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
 
 /* ---------- botón flotante de WhatsApp ---------- */
 .wa-float{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:10px;background:#157A3E;color:#fff;border-radius:999px;padding:12px 18px 12px 14px;font:700 .9rem/1 'Montserrat',system-ui,sans-serif;text-decoration:none;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transition:transform .25s ease,background .25s}
@@ -14,9 +18,9 @@
 @media (max-width:520px){.wa-float span{display:none}.wa-float{padding:14px}}
 
 /* ---------- aviso de cookies ---------- */
-.cc{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;max-width:560px;background:#0B2D5B;color:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);font:400 .9rem/1.55 'Montserrat',system-ui,sans-serif}
+.cc{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;max-width:560px;background:#0B2D5B;color:#fff;border-radius:16px;padding:20px 22px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);font:400 .9rem/1.55 'Inter',system-ui,sans-serif}
 .cc[hidden]{display:none!important}
-.cc h2{font-size:1rem;font-weight:700;margin:0 0 6px;color:#fff}
+.cc h2{font-family:'Montserrat',system-ui,sans-serif;font-size:1rem;font-weight:700;margin:0 0 6px;color:#fff}
 .cc p{margin:0;color:#D6E0EF}
 .cc a{color:#9CCBFF;text-decoration:underline}
 .cc .cc-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
@@ -26,7 +30,8 @@
 .cc ~ .wa-float{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 
 /* ---------- páginas legales y 404 ---------- */
-.lg{margin:0;background:#F4F6F9;color:#1F2937;font:400 1rem/1.7 'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.lg h1,.lg h2,.lg h3,.lg h4{font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif}
+.lg{margin:0;background:#F4F6F9;color:#1F2937;font:400 1rem/1.7 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
 .lg a{color:#0062CC}
 .lg-top{background:#fff;border-bottom:1px solid #E1E5EC;padding-top:env(safe-area-inset-top,0px)}
 .lg-top .in{max-width:880px;margin:0 auto;padding:16px clamp(16px,5vw,32px);display:flex;justify-content:space-between;align-items:center;gap:16px}
