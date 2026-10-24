@@ -99,7 +99,7 @@ function delegar(ev) {
     h.lleva = true;
     await irA(h, junto(ev.a)); h.ubic = ev.a;
     await mirarA(h, ag.grupo.position); pasar(h, ag); await esperar(800);
-    h.lleva = false; ag.espera = false; habla(ag, "Recibido", 1800); h.pend--;
+    h.lleva = false; ag.espera = false; ag.visualHasta = performance.now() + 6000; habla(ag, "Recibido", 1800); h.pend--;
     if (h.pend === 0) await sentar(h);
   });
 }
@@ -109,6 +109,7 @@ function reportar(ev) {
   reportesPend++;
   encolar(ag, async () => {
     await hasta(() => !ag.espera, 30000);
+    await hasta(() => performance.now() > (ag.visualHasta || 0) && !ag.trabajando, 600000);   // mientras el servidor diga que trabaja, sigue en su escritorio
     habla(ag, "Llevo mi informe a Harvey", 3500); await levantar(ag); ag.lleva = true;
     await irA(ag, visita(h, 1));
     await hasta(() => h.ubic === "silla" && h.pend === 0, 15000);
@@ -144,7 +145,7 @@ const dif = (a, b) => { let d = (b - a) % (2 * Math.PI); if (d > Math.PI) d -= 2
 export const interaccion = { hover: null, seleccionado: null };
 export function actualizarGente(t, dt, ahora) {
   personas.forEach((p) => {
-    const g = p.grupo, trab = p.trabajando && !p.espera && p.datos.id !== "_recepcion";
+    const g = p.grupo, trab = ((p.trabajando && !p.espera) || ahora < (p.visualHasta || 0)) && p.datos.id !== "_recepcion";
     p.lev += (p.levObj - p.lev) * Math.min(1, dt * 6);
     p.cam = false;
     if (p.mov) {
