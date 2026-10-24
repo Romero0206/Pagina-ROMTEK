@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B2D5B">
 <meta name="robots" content="noindex, nofollow">
 <title>La Oficina · ROMTEK</title>
 <style>
@@ -10,7 +11,7 @@
 @font-face{font-family:"Inter";font-weight:600;font-display:swap;src:url(assets/fonts/inter-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Montserrat";font-weight:600;font-display:swap;src:url(assets/fonts/montserrat-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Montserrat";font-weight:700;font-display:swap;src:url(assets/fonts/montserrat-latin-700-normal.woff2) format("woff2")}
-:root{--marino:#0B2D5B;--electrico:#007BFF;--gris-claro:#E5E7EB;--gris-oscuro:#1F2937;--fondo:#F7F9FC;--trabajando:#22A15B;--libre:#9AA5B4;--dorado:#C9A24A}
+:root{--panel-w:392px;--marino:#0B2D5B;--electrico:#007BFF;--gris-claro:#E5E7EB;--gris-oscuro:#1F2937;--fondo:#F7F9FC;--trabajando:#22A15B;--libre:#9AA5B4;--dorado:#C9A24A}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden}
 body{background:radial-gradient(120% 120% at 50% 25%,#17488f 0%,#0B2D5B 52%,#06193a 100%);color:var(--marino);font:400 14px/1.5 "Inter",system-ui,sans-serif}
@@ -22,6 +23,7 @@ button{font:inherit;cursor:pointer}
 .etq{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;will-change:left,top;transition:opacity .25s}
 .etq-sala{background:rgba(11,45,91,.88);color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:7px;padding:2px 8px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,0,0,.25);display:flex;align-items:center;gap:7px}
 .etq-sala .n{background:var(--electrico);border-radius:50%;width:18px;height:18px;display:grid;place-items:center;font-size:10px;letter-spacing:0}
+.etq-sala.compacto{font-size:0;padding:2px;gap:0;border-radius:50%}.etq-sala.compacto .n{width:20px;height:20px;font-size:11px}
 .etq-sala.oro{background:linear-gradient(135deg,#d9b863,#9a7a2c);color:#1a1308;border-color:#fff3cf}
 .etq-agente{display:flex;flex-direction:column;align-items:center;gap:3px}
 .etq-agente .nombre{background:#fff;color:var(--marino);border-radius:999px;padding:2px 10px 2px 8px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
@@ -136,11 +138,49 @@ button{font:inherit;cursor:pointer}
 .hi.abierto .re{display:block}.hi .sr{opacity:.6;font-style:italic}
 .sinwebgl{position:fixed;inset:0;display:none;place-items:center;color:#fff;text-align:center;padding:30px}
 
-@media (max-width:900px){
-  .panel{top:auto;left:10px;right:10px;bottom:10px;width:auto;max-height:55vh}
-  .leyenda,.ayuda,.marca p{display:none}.cabecera{top:12px;left:12px}
-  .marca{padding:10px 14px}.marca img{height:28px}
+/* ===== Responsive: Mac / iPad / celular ===== */
+.asa,.mandos{display:none}
+.mandos{position:fixed;z-index:4;flex-direction:column;gap:8px}
+.mandos button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(11,45,91,.7);color:#fff;font-size:20px;line-height:1;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mandos button:active{background:#fff;color:var(--marino)}
+@media (pointer:coarse),(max-width:1099px){.mandos{display:flex;top:max(14px,env(safe-area-inset-top));right:calc(var(--panel-w,0px) + 24px)}}
+.panel{padding-right:env(safe-area-inset-right)}
+@media (max-width:1099px){:root{--panel-w:340px}.panel{width:340px}.cabecera{top:14px;left:16px}.marca{padding:10px 16px}.marca img{height:30px}.marca p{display:none}.ayuda{display:none}}
+@media (max-width:759px),(max-width:1023px) and (orientation:portrait){
+  :root{--panel-w:0px}
+  html,body{overscroll-behavior:none}
+  .cabecera{top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));gap:8px}
+  .marca{padding:8px 12px;border-radius:14px}.marca img{height:22px}.marca h1{display:none}
+  .nav{gap:6px}.nav button{padding:8px 13px;font-size:12px;min-height:36px}
+  .leyenda{display:none}
+  .mandos{top:auto;right:10px;bottom:calc(var(--sheet-h,150px) + 18px + env(safe-area-inset-bottom));flex-direction:row;gap:6px}
+  .mandos button{width:40px;height:40px;font-size:18px}
+  .panel{top:auto;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));width:auto;height:min(62dvh,540px);transition:height .25s}
+  .panel.cerrado{height:auto}
+  .tarjeta.chat{flex:1;border-radius:20px}
+  .panel.cerrado .tarjeta.chat{flex:none}
+  .panel.cerrado .quien,.panel.cerrado .mensajes,.panel.cerrado .compositor,.panel.cerrado .feed{display:none !important}
+  .asa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;background:transparent;padding:8px 0 2px;color:var(--gris-oscuro);opacity:.6;font-size:11px;font-weight:700;letter-spacing:.06em}
+  .asa::before{content:"";width:38px;height:4px;border-radius:2px;background:#c3cad6;position:absolute;top:6px}
+  .asa span{margin-top:6px}
+  .tabs{padding:4px 10px 0}.tab{padding:7px 13px}
+  .chips{padding:8px 10px}.chip{width:44px;height:44px}
+  .mensajes{padding:10px}.m{max-width:92%}
+  .compositor textarea,.pl-nueva input,.pl-nueva select,.hi-barra input,.acceso-caja input{font-size:16px}   /* evita el zoom automático de iOS */
+  .compositor{padding:8px 10px calc(10px + env(safe-area-inset-bottom))}
+  .etq-sala{font-size:9px;padding:2px 6px;border-radius:6px;gap:4px}.etq-sala .n{width:15px;height:15px;font-size:9px}
+  .etq-agente .nombre{font-size:10px}.burbuja{max-width:150px;font-size:10px}
+  .pipeline{padding:0}.pl-caja{width:100%;height:100%;border-radius:0}
+  .pl-cab{padding:max(12px,env(safe-area-inset-top)) 14px 8px;gap:8px 12px}.pl-cab h2{font-size:17px}
+  .pl-filtros{order:5;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}.f{flex:none;padding:6px 12px}
+  .pl-nueva{padding:10px 14px}.pl-nueva input{min-width:0;flex-basis:100%}.pl-nueva select{flex:1}
+  .cols{padding:10px 14px calc(16px + env(safe-area-inset-bottom));gap:12px;display:flex;flex-direction:column;overflow:auto}
+  .col{flex:none}.lista{max-height:none;overflow:visible}
+  .historial{padding:10px 14px calc(14px + env(safe-area-inset-bottom))}.hi-barra input{margin-left:0;flex-basis:100%;min-width:0}
+  .cerrar{width:40px;height:40px}.card .acc button{padding:6px 12px}
 }
+@media (max-width:759px) and (orientation:landscape){.panel{height:min(78dvh,420px);width:min(420px,60vw);left:auto}.panel.cerrado{width:min(420px,60vw)}}
+@media (min-width:760px) and (max-width:1099px){.pl-caja{width:min(900px,100%)}}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -158,8 +198,14 @@ button{font:inherit;cursor:pointer}
 <div class="hud leyenda"><span><i class="t"></i> Trabajando</span><span><i></i> Libre</span></div>
 <div class="hud ayuda">W A S D mover · Q E girar · Mayús rápido · rueda acerca · R centrar · N nombres · clic en una persona para hablarle</div>
 
-<aside class="panel">
+<div class="mandos" id="mandos" aria-label="Controles de cámara">
+  <button data-m="izq" aria-label="Girar a la izquierda">⟲</button><button data-m="der" aria-label="Girar a la derecha">⟳</button>
+  <button data-m="mas" aria-label="Acercar">+</button><button data-m="menos" aria-label="Alejar">−</button><button data-m="centro" aria-label="Vista inicial">⌂</button>
+</div>
+
+<aside class="panel" id="panel">
   <section class="tarjeta chat">
+    <button class="asa" id="asa" aria-label="Mostrar u ocultar el chat"><span id="asa-t">CHAT</span></button>
     <div class="tabs"><button class="tab on" data-t="chat">Chat</button><button class="tab" data-t="act">Actividad</button></div>
     <div id="v-chat" style="display:flex;flex-direction:column;flex:1;min-height:0">
       <div class="chips" id="chips"></div>
