@@ -98,7 +98,32 @@ export function aFeed(ev) {
 /* ===== Pipeline ===== */
 let tareas = [], filtro = "todos";
 const hace = (t) => { const s = (Date.now() / 1000 - t) | 0; return s < 60 ? "ahora" : s < 3600 ? Math.floor(s / 60) + " min" : s < 86400 ? Math.floor(s / 3600) + " h" : Math.floor(s / 86400) + " d"; };
+/* ----- Historial: todo lo que se pidió, venga de Claude Code, Telegram o la oficina ----- */
+let hist = [], filtroOrigen = "todos", textoBuscar = "";
+const ORIGEN = (o) => /claude code/i.test(o) ? ["Claude Code", "cc"] : /telegram/i.test(o) ? ["Telegram", "tg"] : /pipeline/i.test(o) ? ["Pipeline", "pl"] : /^romtek/.test(o) ? ["Delegado por Harvey", "de"] : ["Oficina", "of"];
+const fecha = (t) => new Date(t * 1000).toLocaleString("es-CO", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+async function refrescarHistorial() { try { hist = (await api("/api/historial")).historial; pintarHistorial(); } catch (e) { /* sin servidor */ } }
+function pintarHistorial() {
+  const lista = $("#hi-lista"); if (!lista) return;
+  const q = textoBuscar.toLowerCase();
+  const vis = hist.filter((t) => (filtroOrigen === "todos" || ORIGEN(t.origen)[1] === filtroOrigen) && (!q || (t.titulo + " " + (t.resultado || "")).toLowerCase().includes(q)));
+  lista.innerHTML = vis.length ? vis.map((t, i) => { const [nom, cls] = ORIGEN(t.origen);
+    return `<div class="hi" data-i="${i}" style="border-left-color:${tono(t.agente)}"><div class="cab"><span class="or ${cls}">${esc(nom)}</span><span>${esc(nombreDe(t.agente).split(" ")[0])}</span><span>· ${fecha(t.actualizada)}</span><span>· ${t.estado === "entregado" ? "entregado" : t.estado === "en_proceso" ? "en proceso" : "por hacer"}${t.error ? " (falló)" : ""}</span></div>
+    <div class="ti">${esc(t.titulo)}</div><div class="re">${t.resultado ? esc(t.resultado) : '<span class="sr">Sin respuesta guardada.</span>'}</div></div>`; }).join("") : '<div class="vacio">Aún no hay nada en el historial.</div>';
+  lista.querySelectorAll(".hi").forEach((el) => el.addEventListener("click", () => el.classList.toggle("abierto")));
+}
+function iniciarHistorial() {
+  const f = $("#hi-origen"); const orig = [["todos", "Todos"], ["cc", "Claude Code"], ["tg", "Telegram"], ["of", "Oficina"], ["pl", "Pipeline"], ["de", "Delegados"]];
+  f.innerHTML = orig.map(([k, n], i) => `<button class="f${i ? "" : " on"}" data-o="${k}" type="button">${n}</button>`).join("");
+  f.addEventListener("click", (e) => { const b = e.target.closest(".f"); if (!b) return; filtroOrigen = b.dataset.o; f.querySelectorAll(".f").forEach((x) => x.classList.toggle("on", x === b)); pintarHistorial(); });
+  $("#hi-buscar").addEventListener("input", (e) => { textoBuscar = e.target.value; pintarHistorial(); });
+  const ver = (h) => { $("#historial").hidden = !h; $("#tablero").hidden = h; $("#pl-nueva").hidden = h; $("#pl-filtros").hidden = h; $("#v-historial").classList.toggle("on", h); $("#v-tablero").classList.toggle("on", !h); if (h) refrescarHistorial(); };
+  $("#v-historial").addEventListener("click", () => ver(true)); $("#v-tablero").addEventListener("click", () => ver(false));
+  setInterval(() => { if (!$("#historial").hidden && $("#pipeline").classList.contains("on")) refrescarHistorial(); }, 8000);
+}
+
 export function iniciarPipeline() {
+  iniciarHistorial();
   $("#pl-agente").innerHTML = AGENTES.map((a) => `<option value="${a.id}">${esc(a.nombre)}</option>`).join("");
   const f = $("#pl-filtros"); f.innerHTML = '<button class="f on" data-f="todos" type="button">Todos</button>' + AGENTES.map((a) => `<button class="f" data-f="${a.id}" type="button">${esc(a.nombre.split(" ")[0])}</button>`).join("");
   f.addEventListener("click", (e) => { const b = e.target.closest(".f"); if (!b) return; filtro = b.dataset.f; f.querySelectorAll(".f").forEach((x) => x.classList.toggle("on", x === b)); pintarTareas(); });
