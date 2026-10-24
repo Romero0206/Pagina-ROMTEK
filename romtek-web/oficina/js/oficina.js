@@ -94,7 +94,7 @@ let cursor = 0, primera = true;
 async function sondear() {
   try {
     const j = await (await fetch(API_BASE + "/estado?desde=" + cursor)).json();
-    personas.forEach((p, id) => { const a = j.agentes[id]; const t = !!a; if (p.trabajando !== t) marcarTrabajo(id, t); p.trabajando = t; p.tarea = a ? a.tarea : ""; });
+    personas.forEach((p, id) => { const a = j.agentes[id]; const t = !!a; if (p.trabajando !== t) marcarTrabajo(id, t); p.trabajando = t; if (a) p.tarea = a.tarea; });
     if (primera) { primera = false; } else j.eventos.forEach((ev) => { aFeed(ev); animar(ev); });
     cursor = j.ultimo;
   } catch (e) { /* servidor apagado: la vista queda quieta */ }
