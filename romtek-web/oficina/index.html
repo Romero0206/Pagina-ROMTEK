@@ -16,6 +16,7 @@ html,body{margin:0;height:100%;overflow:hidden}
 body{background:radial-gradient(120% 120% at 50% 25%,#17488f 0%,#0B2D5B 52%,#06193a 100%);color:var(--marino);font:400 14px/1.5 "Inter",system-ui,sans-serif}
 h1,h2,h3,button,.etq,.burbuja,.tab{font-family:"Montserrat","Inter",system-ui,sans-serif}
 button{font:inherit;cursor:pointer}
+[hidden]{display:none !important}
 #lienzo{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none}
 #etiquetas{position:fixed;inset:0;pointer-events:none;overflow:hidden}
 .etq{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;will-change:left,top;transition:opacity .25s}
@@ -119,6 +120,20 @@ button{font:inherit;cursor:pointer}
 .acceso-caja input:focus{outline:2px solid var(--electrico);outline-offset:1px;border-color:transparent}
 .acceso-caja .btn{margin-top:14px;padding:11px 18px}.acceso-caja .btn:disabled{background:var(--libre)}
 .acceso-error{min-height:20px;color:#8a1f1f;font-size:12.5px;margin-top:6px}
+.pl-vistas{display:flex;gap:6px}
+.historial{flex:1;display:flex;flex-direction:column;min-height:0;padding:14px 24px 20px}
+.historial[hidden]{display:none}
+.hi-barra{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hi-barra input{margin-left:auto;border:1.5px solid rgba(11,45,91,.3);border-radius:12px;padding:7px 12px;font:inherit;color:var(--marino);min-width:220px}
+.hi-lista{flex:1;overflow:auto;display:flex;flex-direction:column;gap:9px;padding-right:4px}
+.hi{background:#fff;border:1px solid var(--gris-claro);border-left:4px solid var(--electrico);border-radius:13px;padding:10px 14px;cursor:pointer}
+.hi:hover{background:var(--fondo)}
+.hi .cab{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--gris-oscuro)}
+.hi .or{background:var(--marino);color:#fff;border-radius:999px;padding:1px 9px;font-weight:700;font-size:10.5px}
+.hi .or.cc{background:#7a5c1c}.hi .or.tg{background:#13839a}.hi .or.of{background:#007BFF}.hi .or.pl{background:#1c7c54}.hi .or.de{background:#5c7c9e}
+.hi .ti{font-weight:600;font-size:13.5px;margin-top:4px;line-height:1.35;word-break:break-word}
+.hi .re{display:none;margin-top:8px;padding:10px 12px;background:var(--fondo);border:1px solid var(--gris-claro);border-radius:10px;white-space:pre-wrap;word-break:break-word;font-size:12.5px;color:var(--gris-oscuro);max-height:320px;overflow:auto}
+.hi.abierto .re{display:block}.hi .sr{opacity:.6;font-style:italic}
 .sinwebgl{position:fixed;inset:0;display:none;place-items:center;color:#fff;text-align:center;padding:30px}
 
 @media (max-width:900px){
@@ -158,9 +173,13 @@ button{font:inherit;cursor:pointer}
 
 <section class="pipeline" id="pipeline">
   <div class="pl-caja">
-    <div class="pl-cab"><h2>Pipeline</h2><div class="pl-filtros" id="pl-filtros"></div><button class="cerrar" id="pl-cerrar" aria-label="Cerrar">×</button></div>
+    <div class="pl-cab"><h2>Pipeline</h2><div class="pl-vistas"><button class="f on" id="v-tablero" type="button">Tablero</button><button class="f" id="v-historial" type="button">Historial</button></div><div class="pl-filtros" id="pl-filtros"></div><button class="cerrar" id="pl-cerrar" aria-label="Cerrar">×</button></div>
     <form class="pl-nueva" id="pl-nueva"><input id="pl-titulo" placeholder="Nueva tarea, por ejemplo: actualizar los precios del benchmarking" required><select id="pl-agente"></select><button class="btn">Agregar</button></form>
-    <div class="cols">
+    <div class="historial" id="historial" hidden>
+      <div class="hi-barra"><div class="pl-filtros" id="hi-origen"></div><input id="hi-buscar" type="search" placeholder="Buscar en el historial…"></div>
+      <div class="hi-lista" id="hi-lista"></div>
+    </div>
+    <div class="cols" id="tablero">
       <div class="col"><h3><i class="barra" style="background:#9AA5B4"></i>Por hacer <span class="c" id="n-por_hacer">0</span></h3><div class="lista" id="l-por_hacer"></div></div>
       <div class="col"><h3><i class="barra" style="background:#22A15B"></i>En proceso <span class="c" id="n-en_proceso">0</span></h3><div class="lista" id="l-en_proceso"></div></div>
       <div class="col"><h3><i class="barra" style="background:#007BFF"></i>Entregado <span class="c" id="n-entregado">0</span></h3><div class="lista" id="l-entregado"></div></div>
