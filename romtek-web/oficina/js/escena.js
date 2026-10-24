@@ -8,7 +8,8 @@ export { THREE };
 /* ===== Escena, cámara y luces ===== */
 export const lienzo = document.getElementById("lienzo");
 export const renderer = new THREE.WebGLRenderer({ canvas: lienzo, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const MOVIL = matchMedia("(pointer: coarse)").matches || Math.min(innerWidth, innerHeight) < 700;
+renderer.setPixelRatio(Math.min(devicePixelRatio, MOVIL ? 1.5 : 2));
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -27,7 +28,7 @@ controles.update();
 scene.add(new THREE.HemisphereLight(0xffffff, 0xaebfd8, 1.0));
 const sol = new THREE.DirectionalLight(0xfff4e6, 1.9);
 sol.position.set(CENTRO.x - 22, 52, CENTRO.z - 16); sol.target.position.copy(CENTRO); scene.add(sol, sol.target);
-sol.castShadow = true; sol.shadow.mapSize.set(4096, 4096); sol.shadow.bias = -0.0003; sol.shadow.normalBias = 0.03;
+sol.castShadow = true; sol.shadow.mapSize.set(MOVIL ? 2048 : 4096, MOVIL ? 2048 : 4096); sol.shadow.bias = -0.0003; sol.shadow.normalBias = 0.03;
 Object.assign(sol.shadow.camera, { left: -42, right: 42, top: 42, bottom: -42, near: 1, far: 140 });
 
 /* ===== Materiales y ayudas ===== */
@@ -402,9 +403,17 @@ export function actualizarMundo(t, dt, ahora) {
 }
 
 export function ajustar() {
-  const w = innerWidth, h = innerHeight, asp = w / h, libre = w > 900 ? (w - 420) / w : 1;   // el panel ocupa la derecha
-  const mitad = Math.max(20, 33 / (asp * libre)), ancho = mitad * asp, corre = (1 - libre) * ancho;
-  Object.assign(camara, { left: -ancho + corre, right: ancho + corre, top: mitad, bottom: -mitad });
+  const w = innerWidth, h = innerHeight, asp = w / h;
+  const panel = document.getElementById("panel"), r = panel ? panel.getBoundingClientRect() : null;
+  let x0 = 0, x1 = w, y0 = 0, y1 = h;                               // zona de la pantalla que el panel y el encabezado no tapan
+  if (r && r.width > 0 && r.height > 0) { if (r.width < w * 0.6 && r.left > w * 0.4) x1 = r.left - 8; else y1 = r.top - 8; }
+  const cab = document.querySelector(".cabecera"); if (cab && w < 760) y0 = cab.getBoundingClientRect().bottom + 4;
+  const bw = Math.max(120, x1 - x0), bh = Math.max(120, y1 - y0);
+  const mitad = Math.max(17, 22 * h / bh, 33 * h / bw), W = 2 * mitad * asp, H = 2 * mitad;   // medio alto del plano visible, en metros
+  const left = -((x0 + x1) / 2 / w) * W, top = ((y0 + y1) / 2 / h) * H;                          // el edificio se centra en la zona libre
+  Object.assign(camara, { left, right: left + W, top, bottom: top - H });
+  document.documentElement.style.setProperty("--sheet-h", (r && y1 < h ? r.height : 150) + "px");
   camara.updateProjectionMatrix(); renderer.setSize(w, h, false);
 }
+if (window.ResizeObserver && document.getElementById("panel")) new ResizeObserver(() => ajustar()).observe(document.getElementById("panel"));
 addEventListener("resize", ajustar); ajustar();
