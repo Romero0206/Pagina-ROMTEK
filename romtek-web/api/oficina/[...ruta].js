@@ -1,6 +1,6 @@
 // Puente autenticado: la web reenvía a La Oficina (el servidor del jefe) solo si hay sesión válida.
 const { sesionValida } = require("../_lib/sesion");
-const PERMITIDAS = /^(sesion|estado|tareas(\/\w+(\/iniciar)?)?|chat(\/[\w-]+)?|encargo(\/\w+)?)$/;
+const PERMITIDAS = /^(sesion|estado|historial|tareas(\/\w+(\/iniciar)?)?|chat(\/[\w-]+)?|encargo(\/\w+)?)$/;
 
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
