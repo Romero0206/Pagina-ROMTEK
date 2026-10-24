@@ -27,8 +27,8 @@ function visibilidadEtiquetas(ahora) {
     const activo = (p.trabajando && !p.espera) || (p.habla && ahora < p.habla.hasta) || interaccion.seleccionado === id || interaccion.hover === id;
     p.etq.style.opacity = modo === "todos" || activo || (modo === "auto" && z >= 1.5) ? 1 : 0;
   });
-  const verSalas = modo !== "ocultos" && z <= 2.3 ? 1 : 0;
-  salasEtq.forEach((e) => { e.style.opacity = verSalas; });
+  const verSalas = modo !== "ocultos" && z <= 2.3 ? 1 : 0, lejos = esCelular() && modo === "auto" && z < 1.3;    // en celular, de lejos solo los números de las etapas
+  salasEtq.forEach((e) => { const clave = !!e.querySelector(".n") || e.classList.contains("oro"); e.classList.toggle("compacto", lejos && !!e.querySelector(".n")); e.style.opacity = verSalas && (!lejos || clave) ? 1 : 0; });
 }
 
 /* ===== Cámara con foco ===== */
@@ -44,11 +44,12 @@ setAlElegir((id) => enfocar(id));
 
 /* ===== Teclado, como en un juego: W A S D mover · Q E girar · Mayús rápido · R centrar · N nombres ===== */
 const teclas = new Set();
+function reiniciarVista() { camara.position.copy(CENTRO).add(new THREE.Vector3(46, 40, 46)); controles.target.copy(CENTRO); camara.zoom = 1; camara.updateProjectionMatrix(); enfocar(null); }
 const escribiendo = () => ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName) || document.getElementById("pipeline").classList.contains("on");
 addEventListener("keydown", (e) => {
   if (escribiendo() || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.code === "KeyN") return cambiarModo();
-  if (e.code === "KeyR") { camara.position.copy(CENTRO).add(new THREE.Vector3(46, 40, 46)); controles.target.copy(CENTRO); camara.zoom = 1; camara.updateProjectionMatrix(); enfocar(null); return; }
+  if (e.code === "KeyR") return reiniciarVista();
   if (["KeyW", "KeyA", "KeyS", "KeyD", "KeyQ", "KeyE", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) { teclas.add(e.code); e.preventDefault(); }
 });
 addEventListener("keyup", (e) => setTimeout(() => teclas.delete(e.code), 90));   // un toque corto también cuenta
@@ -71,6 +72,29 @@ function moverCamara(dt, shift) {
   }
 }
 
+/* ===== Celular, iPad y Mac: panel plegable, botones de cámara táctiles y ayuda según el dispositivo ===== */
+const panel = document.getElementById("panel"), movil = matchMedia("(max-width:759px), (max-width:1023px) and (orientation:portrait)");   // celular, o iPad vertical: el chat va abajo
+const esCelular = () => movil.matches;
+function fijarPanel(abierto) { panel.classList.toggle("cerrado", !abierto); document.getElementById("asa-t").textContent = abierto ? "▼ OCULTAR" : "▲ CHAT Y EQUIPO"; }
+if (esCelular()) fijarPanel(false); else document.getElementById("asa-t").textContent = "";
+document.getElementById("asa").addEventListener("click", () => fijarPanel(panel.classList.contains("cerrado")));
+document.getElementById("texto").addEventListener("focus", () => { if (esCelular()) fijarPanel(true); });
+panel.addEventListener("click", (e) => { if (esCelular() && panel.classList.contains("cerrado") && e.target.closest(".chip, .tab")) fijarPanel(true); });
+movil.addEventListener("change", () => fijarPanel(!movil.matches));
+if (matchMedia("(pointer:coarse)").matches) document.querySelector(".ayuda").textContent = "Un dedo gira · dos dedos mueven y acercan · toca una persona para hablarle";
+document.querySelectorAll("#mandos button").forEach((b) => {
+  const k = b.dataset.m;
+  if (k === "izq" || k === "der") {
+    const code = k === "izq" ? "KeyQ" : "KeyE", off = () => teclas.delete(code);
+    b.addEventListener("pointerdown", (e) => { e.preventDefault(); objetivo.hasta = 0; teclas.add(code); });
+    ["pointerup", "pointercancel", "pointerleave"].forEach((ev) => b.addEventListener(ev, off));
+  } else b.addEventListener("click", () => {
+    objetivo.hasta = 0;
+    if (k === "mas") camara.zoom = Math.min(controles.maxZoom, camara.zoom * 1.3); else if (k === "menos") camara.zoom = Math.max(controles.minZoom, camara.zoom / 1.3); else return reiniciarVista();
+    camara.updateProjectionMatrix();
+  });
+});
+
 /* ===== Clic y paso del ratón sobre las personas ===== */
 const rayo = new THREE.Raycaster(), ptr = new THREE.Vector2(); let abajo = null;
 function bajo(ev) {
@@ -83,7 +107,7 @@ lienzo.addEventListener("pointerdown", (e) => { abajo = { x: e.clientX, y: e.cli
 lienzo.addEventListener("pointerup", (e) => {
   if (abajo && Math.hypot(e.clientX - abajo.x, e.clientY - abajo.y) < 5) {
     const id = bajo(e);
-    if (id && id !== "_jefe") { elegirChat(id, false); enfocar(id); } else enfocar(id === interaccion.seleccionado ? null : id);
+    if (id && id !== "_jefe") { elegirChat(id, false); enfocar(id); if (esCelular()) fijarPanel(true); } else enfocar(id === interaccion.seleccionado ? null : id);
   }
   abajo = null;
 });
